@@ -1,5 +1,10 @@
 # TP2  WEB
 
+## Utilisation du dépot
+
+Quand on commence une fonctionnalité, on fork la branche dev, on travaille sur notre branche. Ensuite quand on a finit, on pull dev, on merge dev à notre branche, on résoud les conflits, on merge notre branche à dev, on push, on supprime notre branche.
+Les versions stables (testées en profondeur) seront merge sur master de temps à autre.
+
 ## TO-DO
 Note : avec tout ce qui est indiqué, il y a aura probablement des fonctions à ajouter dans les controllers, voir des controllers à faire.
 Si on voit mieux comment découper les tâches au besoin faut pas hésiter à modifier.

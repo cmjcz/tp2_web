@@ -3,12 +3,14 @@
 {% block title %}Hello LoginController!{% endblock %}
 
 {% block body %}
-<div class="login_block">
-    <h1>Identification</h1>
+<div class="block">
+    <div class="login_block">
+        <h1>Identification</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-            <button class="btn">{{ button_label|default('Connexion') }}</button>
-    {{ form_end(form) }}
+        {{ form_start(formConnexion) }}
+            {{ form_widget(formConnexion) }}
+                <button class="btn">{{ button_label|default('Connexion') }}</button>
+        {{ form_end(formConnexion) }}
+    </div>
 </div>
 {% endblock %}

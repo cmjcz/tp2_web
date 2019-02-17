@@ -15,20 +15,24 @@ class LoginController extends AbstractController
      */
     public function login(Request $request)
     {
-
         $compte = new Comptes();
-        $form = $this->createFormBuilder($compte)->add('nom', TextType::class)->getForm();
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $compte = $this->getDoctrine()->getRepository(Comptes::class)
+        $formConnexion = $this->createFormBuilder($compte)->add('nom', TextType::class)->getForm();
+        $formConnexion->handleRequest($request);
+
+        if ($formConnexion->isSubmitted() && $formConnexion->isValid()) {
+            $compteBD = $this->getDoctrine()->getRepository(Comptes::class)
             ->findOneBy(array('nom' => $compte->getNom()));
-            if(!is_null($compte)){
-                return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdcomptes()]);
+            if(is_null($compteBD)){
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($compte);
+                $entityManager->flush();
             }
+            return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdcomptes()]);
         }
+
         return $this->render('login/index.html.twig', [
-            'form' => $form->createView(),
+            'formConnexion' => $formConnexion->createView(),
         ]);
     }
 }

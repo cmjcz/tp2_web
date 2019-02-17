@@ -27,6 +27,8 @@ class LoginController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($compte);
                 $entityManager->flush();
+            }else{
+                $compte = $compteBD;
             }
             return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdcomptes()]);
         }

@@ -13,7 +13,7 @@ class LoginController extends AbstractController
     /**
      * @Route("/", name="login", methods={"GET","POST"})
      */
-    public function index(Request $request)
+    public function login(Request $request)
     {
 
         $compte = new Comptes();

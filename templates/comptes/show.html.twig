@@ -8,19 +8,36 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Idcomptes</th>
-                <td>{{ compte.idcomptes }}</td>
-            </tr>
-            <tr>
                 <th>Nom</th>
                 <td>{{ compte.nom }}</td>
+            </tr>
+            <tr>
+                <th>Solde</th>
+                {% if compte.lastTransaction is not null %}
+                    <td> {{ compte.lastTransaction.solde }}</td>
+                {% else %}
+                    <td> 0 </td>
+                {% endif %}
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('comptes_index') }}">back to list</a>
-
-    <a href="{{ path('comptes_edit', {'idcomptes': compte.idcomptes}) }}">edit</a>
-
-    {{ include('comptes/_delete_form.html.twig') }}
+    <table class="table">
+        <thead>
+            <th>Date</th>
+            <th>Solde</th>
+        </thead>
+        <tbody>
+            {% for transaction in compte.transactions %}
+                <tr>
+                    </td>{{ transaction.datestring }}</td>
+                    </td>{{ transaction.solde }}</td>
+                </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">Aucune transaction enregistrée.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

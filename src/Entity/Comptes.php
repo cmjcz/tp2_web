@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,15 +23,34 @@ class Comptes
     private $idcomptes;
 
     /**
+     * @var \Transcations
+     *
+     * @ORM\OneToMany(targetEntity="Transactions", mappedBy="idcompte")
+     */
+    private $transactions;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50, nullable=false)
      */
     private $nom;
 
+    public function __construct(){
+        $transactions = new ArrayCollection();
+    }
+
     public function getIdcomptes(): ?int
     {
         return $this->idcomptes;
+    }
+
+    public function getTransactions(){
+        return $this->transactions;
+    }
+
+    public function getLastTransaction(){
+        return $this->transactions[0];
     }
 
     public function getNom(): ?string

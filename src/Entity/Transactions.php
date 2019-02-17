@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
 
 /**
  * Transactions
@@ -65,6 +66,10 @@ class Transactions
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
+    }
+
+    public function getDateString(): ?string{
+        return $this->date->format("d m Y");
     }
 
     public function setDate(\DateTimeInterface $date): self

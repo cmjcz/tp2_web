@@ -26,6 +26,7 @@ class Comptes
      * @var \Transcations
      *
      * @ORM\OneToMany(targetEntity="Transactions", mappedBy="idcompte")
+     * @ORM\OrderBy({"date" = "DESC"})
      */
     private $transactions;
 

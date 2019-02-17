@@ -39,7 +39,7 @@ class Transactions
     /**
      * @var \Comptes
      *
-     * @ORM\ManyToOne(targetEntity="Comptes")
+     * @ORM\ManyToOne(targetEntity="Comptes", inversedBy="transactions")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idCompte", referencedColumnName="idComptes")
      * })

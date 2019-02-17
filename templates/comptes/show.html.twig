@@ -22,16 +22,18 @@
         </tbody>
     </table>
 
-    <table class="table">
+    <table>
         <thead>
-            <th>Date</th>
-            <th>Solde</th>
+            <tr>
+                <th>Date</th>
+                <th>Solde</th>
+            </tr>
         </thead>
         <tbody>
             {% for transaction in compte.transactions %}
                 <tr>
-                    </td>{{ transaction.datestring }}</td>
-                    </td>{{ transaction.solde }}</td>
+                    <td>{{ transaction.datestring }}</td>
+                    <td>{{ transaction.solde }}</td>
                 </tr>
             {% else %}
             <tr>

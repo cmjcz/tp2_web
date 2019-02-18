@@ -39,16 +39,16 @@ class ChangeMoneyController extends AbstractController
         $transaction->setDate(new DateTime())->setIdCompte($compte);
 
         if($form->isSubmitted() && $form->isValid()){
-            $transaction->setSolde($transaction->getSolde() + $sum->getSomme() * $signe);
+            $transaction->setSolde($compte->getLastTransaction()->getSolde() + $sum->getSomme() * $signe);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($transaction);
             $entityManager->flush();
+            return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdComptes()]);
         }
 
         return $this->render('change_money/index.html.twig', [
             'operation' => $nom,
             'form' => $form->createView(),
-            'date' => (new DateTime())->format("d m Y H-m-s"),
         ]);
     }
 }

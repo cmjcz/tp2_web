@@ -48,6 +48,7 @@ class ChangeMoneyController extends AbstractController
         return $this->render('change_money/index.html.twig', [
             'operation' => $nom,
             'form' => $form->createView(),
+            'date' => (new DateTime())->format("d m Y H-m-s"),
         ]);
     }
 }

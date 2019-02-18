@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,6 +40,7 @@ class Comptes
 
     public function __construct(){
         $transactions = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
     public function getIdcomptes(): ?int
@@ -62,6 +64,29 @@ class Comptes
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function addTransaction(Transactions $transaction): self
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions[] = $transaction;
+            $transaction->setIdcompte($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transactions $transaction): self
+    {
+        if ($this->transactions->contains($transaction)) {
+            $this->transactions->removeElement($transaction);
+            // set the owning side to null (unless already changed)
+            if ($transaction->getIdcompte() === $this) {
+                $transaction->setIdcompte(null);
+            }
+        }
 
         return $this;
     }

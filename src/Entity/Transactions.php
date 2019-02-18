@@ -32,7 +32,7 @@ class Transactions
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date", nullable=false)
+     * @ORM\Column(name="date", type="datetime", nullable=false)
      */
     private $date;
 
@@ -69,7 +69,7 @@ class Transactions
     }
 
     public function getDateString(): ?string{
-        return $this->date->format("d m Y");
+        return $this->date->format("d m Y H-m-s");
     }
 
     public function setDate(\DateTimeInterface $date): self

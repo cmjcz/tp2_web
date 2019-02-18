@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use \DateTime;
 use App\Entity\Comptes;
 use App\Entity\Transactions;
+use App\Entity\Argent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,12 +33,13 @@ class ChangeMoneyController extends AbstractController
     private function changeMonney(Comptes $compte, Request $request, int $signe, String $nom) : Response
     {
         $transaction = new Transactions();
-        $form = $this->createFormBuilder($transaction)->add('solde', NumberType::class)->getForm();
+        $sum = new Argent();
+        $form = $this->createFormBuilder($sum)->add('somme', NumberType::class)->getForm();
         $form->handleRequest($request);
         $transaction->setDate(new DateTime())->setIdCompte($compte);
 
         if($form->isSubmitted() && $form->isValid()){
-            $transaction->setSolde($transaction->getSolde() * $signe);
+            $transaction->setSolde($transaction->getSolde() + $sum->getSomme() * $signe);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($transaction);
             $entityManager->flush();

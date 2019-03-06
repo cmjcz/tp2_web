@@ -5,14 +5,14 @@
 {% block body %}
     <h1>Comptes</h1>
 
-    <table class="table">
+    <table class="table table-hover">
         <tbody>
-            <tr>
-                <th>Nom</th>
+            <tr class="table-light">
+                <th scope="row">Nom</th>
                 <td>{{ compte.nom }}</td>
             </tr>
-            <tr>
-                <th>Solde</th>
+            <tr class="table-light">
+                <th scope="row">Solde</th>
                 {% if compte.lastTransaction is not null %}
                     <td> {{ compte.lastTransaction.solde }}</td>
                 {% else %}
@@ -22,21 +22,24 @@
         </tbody>
     </table>
 
-    <table>
+    <button onclick="window.location.href = '{{ path('depot',  {'compte' : compte.idcomptes}) }}';" type="button" class="btn btn-success">Déposer</button>
+    <button onclick="window.location.href = '{{ path('retrait',  {'compte' : compte.idcomptes}) }}';" type="button" class="btn btn-warning">Retirer</button>
+
+    <table class="table table-hover">
         <thead>
-            <tr>
-                <th>Date</th>
-                <th>Solde</th>
+            <tr class="table-light">
+                <th scope="col">Date</th>
+                <th scope="col">Solde</th>
             </tr>
         </thead>
         <tbody>
             {% for transaction in compte.transactions %}
-                <tr>
+                <tr class="table-light">
                     <td>{{ transaction.datestring }}</td>
                     <td>{{ transaction.solde }}</td>
                 </tr>
             {% else %}
-            <tr>
+            <tr class="table-warning">
                 <td colspan="2">Aucune transaction enregistrée.</td>
             </tr>
             {% endfor %}

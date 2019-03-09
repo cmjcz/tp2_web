@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegisterController!{% endblock %}
+
+{% block body %}
+<div class="block">
+    <div class="login_block">
+        <h1>Enregistrement</h1>
+
+        {{ form_start(formRegister) }}
+            {{ form_widget(formRegister) }}
+                <button class="btn">{{ button_label|default('Enregistrement') }}</button>
+        {{ form_end(formRegister) }}
+    </div>
+    <button onclick="window.location.href = '{{ path('login') }}';" type="button" class="btn btn-success">Se connecter</button>
+</div>
+{% endblock %}

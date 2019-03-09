@@ -11,6 +11,7 @@
             {{ form_widget(formConnexion) }}
                 <button class="btn">{{ button_label|default('Connexion') }}</button>
         {{ form_end(formConnexion) }}
-    </div>
+    </div>    
+    <button onclick="window.location.href = '{{ path('register') }}';" type="button" class="btn btn-success">S'enregistrer</button>
 </div>
 {% endblock %}

@@ -9,6 +9,11 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+
+        {% if errorMessage is defined%}
+            <span>{{ errorMessage }}</span>
+        {% endif %}
+        
         {% block javascripts %}{% endblock %}
     </body>
 </html>

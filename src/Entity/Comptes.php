@@ -39,7 +39,6 @@ class Comptes
     private $nom;
 
     public function __construct(){
-        $transactions = new ArrayCollection();
         $this->transactions = new ArrayCollection();
     }
 

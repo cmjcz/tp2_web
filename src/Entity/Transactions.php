@@ -30,6 +30,13 @@ class Transactions
     private $solde = '0';
 
     /**
+     * @var \String
+     *
+     * @ORM\Column(name="intitule", type="string", nullable=false)
+     */
+    private $intitule;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime", nullable=false)
@@ -66,6 +73,17 @@ class Transactions
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
+    }
+
+    public function getIntitule(){
+        return $this->intitule;
+    }
+
+    public function setIntitule($intitule): self
+    {
+        $this->intitule = $intitule;
+
+        return $this;
     }
 
     public function getDateString(): ?string{

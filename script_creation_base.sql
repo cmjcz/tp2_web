@@ -36,15 +36,11 @@ CREATE TABLE IF NOT EXISTS `tp2`.`Transactions` (
   `idTransactions` INT NOT NULL AUTO_INCREMENT,
   `solde` INT NOT NULL DEFAULT 0,
   `date` DATETIME NOT NULL,
+  `intitule` VARCHAR(100) NOT NULL,
   `idCompte` INT NOT NULL,
   PRIMARY KEY (`idTransactions`),
-  INDEX `fk_Transactions_1_idx` (`idCompte` ASC),
-  CONSTRAINT `fk_Transactions_1`
-    FOREIGN KEY (`idCompte`)
-    REFERENCES `tp2`.`Comptes` (`idComptes`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  INDEX `fk_Transactions_1_idx` (`idCompte` ASC) )
+ENGINE = MyISAM;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

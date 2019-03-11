@@ -42,16 +42,27 @@ class ChangeMoneyController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $last = $compte->getLastTransaction();
             //Définition du solde après transaction. Il s'agit du solde actuel (par défaut 0) additionné au montant de la transaction.
-            $transaction->setSolde(is_null($last) ? 0 : $last->getSolde() + $transaction->getSolde() * $signe);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($transaction);
-            $entityManager->flush();
-            return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdComptes()]);
+            $newSolde = is_null($last) ? 0 : ($last->getSolde() + $transaction->getSolde() * $signe);
+            if($transaction->getSolde() > 0){
+                $transaction->setSolde($newSolde);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($transaction);
+                $entityManager->flush();
+                return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdComptes()]);
+            }else{
+                return $this->render('change_money/index.html.twig', [
+                    'operation' => $nom,
+                    'form' => $form->createView(),
+                    'compte' => $compte,
+                    'errorMessage' => "Montant non autorisé. Veuillez indiquer une valeur supérieure à 0",
+                ]);    
+            }
         }
 
         return $this->render('change_money/index.html.twig', [
             'operation' => $nom,
             'form' => $form->createView(),
+            'compte' => $compte,
         ]);
     }
 }

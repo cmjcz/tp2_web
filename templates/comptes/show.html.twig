@@ -5,18 +5,18 @@
 {% block body %}
     <h1>Comptes</h1>
 
-    <table class="table table-hover">
+    <table class="striped">
         <tbody>
-            <tr class="table-light">
+            <tr class="">
                 <th scope="row">Nom</th>
                 <td>{{ compte.nom }}</td>
             </tr>
-            <tr class="table-light">
+            <tr class="">
                 <th scope="row">Solde</th>
-                {% if compte.lastTransaction is not null %}
-                    <td> {{ compte.lastTransaction.solde }}</td>
+                {% if compte.lastTransaction.solde < 0 %}
+                    <td style="color:red;"> <b>{{ compte.lastTransaction.solde }}</b></td>
                 {% else %}
-                    <td> 0 </td>
+                    <td style="color:green;"> <b>{{ compte.lastTransaction.solde }}</b></td>
                 {% endif %}
             </tr>
         </tbody>
@@ -25,9 +25,9 @@
     <button onclick="window.location.href = '{{ path('depot',  {'compte' : compte.idcomptes}) }}';" type="button" class="btn btn-success">Déposer</button>
     <button onclick="window.location.href = '{{ path('retrait',  {'compte' : compte.idcomptes}) }}';" type="button" class="btn btn-warning">Retirer</button>
 
-    <table class="table table-hover">
+    <table class="striped">
         <thead>
-            <tr class="table-light">
+            <tr>
                 <th scope="col">Date</th>
                 <th scope="col">intitule</th>
                 <th scope="col">Solde</th>

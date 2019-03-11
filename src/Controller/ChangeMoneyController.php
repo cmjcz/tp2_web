@@ -35,7 +35,7 @@ class ChangeMoneyController extends AbstractController
     {
         $transaction = new Transactions();
         //Initialisation du formulaire
-        $form = $this->createFormBuilder($transaction)->add('solde', NumberType::class)->add('intitule', TextType::class)->getForm();
+        $form = $this->createFormBuilder($transaction)->add('solde', NumberType::class, ['label' => 'Montant'])->add('intitule', TextType::class)->getForm();
         $form->handleRequest($request);
         $transaction->setDate(new DateTime())->setIdCompte($compte);
 

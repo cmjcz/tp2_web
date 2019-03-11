@@ -53,6 +53,7 @@ class ChangeMoneyController extends AbstractController
                 return $this->render('change_money/index.html.twig', [
                     'operation' => $nom,
                     'form' => $form->createView(),
+                    'compte' => $compte,
                     'errorMessage' => "Montant non autorisé. Veuillez indiquer une valeur supérieure à 0",
                 ]);    
             }
@@ -61,6 +62,7 @@ class ChangeMoneyController extends AbstractController
         return $this->render('change_money/index.html.twig', [
             'operation' => $nom,
             'form' => $form->createView(),
+            'compte' => $compte,
         ]);
     }
 }

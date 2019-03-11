@@ -9,4 +9,5 @@
         {{ form_widget(form) }}
             <button class="btn">{{ button_label|default("Valider") }}</button>
     {{ form_end(form) }}
+    <button onclick="window.location.href = '{{ path('comptes_show',  {'idcomptes' : compte.idcomptes}) }}';" type="button" class="btn btn-success">Retour</button>
 {% endblock %}

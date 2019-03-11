@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Comptes
+ * Représente un compte localement. Un compte consiste en un identifiant et une clé.
+ * Son rôle est de gérer la liste des utilisateurs.
  *
  * @ORM\Table(name="Comptes", uniqueConstraints={@ORM\UniqueConstraint(name="nom_UNIQUE", columns={"nom"})})
  * @ORM\Entity
@@ -81,7 +83,6 @@ class Comptes
     {
         if ($this->transactions->contains($transaction)) {
             $this->transactions->removeElement($transaction);
-            // set the owning side to null (unless already changed)
             if ($transaction->getIdcompte() === $this) {
                 $transaction->setIdcompte(null);
             }

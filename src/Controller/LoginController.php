@@ -24,18 +24,15 @@ class LoginController extends AbstractController
 
         if ($formConnexion->isSubmitted() && $formConnexion->isValid()) {
             $compteBD = $this->getDoctrine()->getRepository(Comptes::class)->findOneBy(array('nom' => $compte->getNom()));
-            // Register
-            if(is_null($compteBD)) {
-                return $this->render('login/index.html.twig', [
-                    'formConnexion' => $formConnexion->createView(),
-                    'errorMessage' => "Ce compte n'existe pas !",
-                ]);
-            }
-            // Login
-            else {
+            if(!is_null($compteBD)) {
                 $compte = $compteBD;
+                return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdcomptes()]);
+                
             }
-            return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdcomptes()]);
+            return $this->render('login/index.html.twig', [
+                'formConnexion' => $formConnexion->createView(),
+                'errorMessage' => "Ce compte n'existe pas !",
+            ]);
         }
 
         return $this->render('login/index.html.twig', [
@@ -53,32 +50,35 @@ class LoginController extends AbstractController
 
         if ($formRegister->isSubmitted() && $formRegister->isValid()) {
             $compteBD = $this->getDoctrine()->getRepository(Comptes::class)->findOneBy(array('nom' => $compte->getNom()));
-            // Register
-            if(is_null($compteBD)) {
-                $entityManager = $this->getDoctrine()->getManager();
-                // Initialize the first transaction for the compte
-                $firstTransaction = new Transactions();
-                $firstTransaction->setSolde(0);
-                $firstTransaction->setDate(new DateTime());
-                $firstTransaction->setIntitule("Création du compte");
-                $compte->addTransaction($firstTransaction);
-
-                // Add to the db
-                $entityManager->persist($compte);
-                $entityManager->persist($firstTransaction);
-                $entityManager->flush();
-            }
-            else {
+            if(!is_null($compteBD)) {
                 return $this->render('login/register.html.twig', [
                     'formRegister' => $formRegister->createView(),
                     'errorMessage' => "Ce compte existe déjà !",
                 ]);
             }
+
+            //register
+            $entityManager = $this->getDoctrine()->getManager();
+            // Initialize the first transaction for the compte
+            $firstTransaction = new Transactions();
+            $firstTransaction->setSolde(0);
+            $firstTransaction->setDate(new DateTime());
+            $firstTransaction->setIntitule("Création du compte");
+            $compte->addTransaction($firstTransaction);
+
+            // Add to the db
+            $entityManager->persist($compte);
+            $entityManager->persist($firstTransaction);
+            $entityManager->flush();
             return $this->redirectToRoute('comptes_show', ['idcomptes' => $compte->getIdcomptes()]);
         }
 
         return $this->render('login/register.html.twig', [
             'formRegister' => $formRegister->createView(),
         ]);
+    }
+
+    private function errorMessage(String $msg){
+
     }
 }

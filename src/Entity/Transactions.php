@@ -7,6 +7,8 @@ use \DateTime;
 
 /**
  * Transactions
+ * Représente la transaction localement. Une transaction est un intitulé, une date, et un solde d'arrivé.
+ * Son rôle est de conserver l'historique de toutes les transactions.
  *
  * @ORM\Table(name="Transactions", indexes={@ORM\Index(name="fk_Transactions_1_idx", columns={"idCompte"})})
  * @ORM\Entity

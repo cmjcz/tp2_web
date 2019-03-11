@@ -34,12 +34,14 @@ class ChangeMoneyController extends AbstractController
     private function changeMonney(Comptes $compte, Request $request, int $signe, String $nom) : Response
     {
         $transaction = new Transactions();
+        //Initialisation du formulaire
         $form = $this->createFormBuilder($transaction)->add('solde', NumberType::class)->add('intitule', TextType::class)->getForm();
         $form->handleRequest($request);
         $transaction->setDate(new DateTime())->setIdCompte($compte);
 
         if($form->isSubmitted() && $form->isValid()){
             $last = $compte->getLastTransaction();
+            //Définition du solde après transaction. Il s'agit du solde actuel (par défaut 0) additionné au montant de la transaction.
             $transaction->setSolde(is_null($last) ? 0 : $last->getSolde() + $transaction->getSolde() * $signe);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($transaction);

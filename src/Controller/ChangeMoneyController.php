@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use \DateTime;
 use App\Entity\Comptes;
 use App\Entity\Transactions;
@@ -33,13 +34,13 @@ class ChangeMoneyController extends AbstractController
     private function changeMonney(Comptes $compte, Request $request, int $signe, String $nom) : Response
     {
         $transaction = new Transactions();
-        $sum = new Argent();
-        $form = $this->createFormBuilder($sum)->add('somme', NumberType::class)->getForm();
+        $form = $this->createFormBuilder($transaction)->add('solde', NumberType::class)->add('intitule', TextType::class)->getForm();
         $form->handleRequest($request);
         $transaction->setDate(new DateTime())->setIdCompte($compte);
 
         if($form->isSubmitted() && $form->isValid()){
-            $transaction->setSolde($compte->getLastTransaction()->getSolde() + $sum->getSomme() * $signe);
+            $last = $compte->getLastTransaction();
+            $transaction->setSolde(is_null($last) ? 0 : $last->getSolde() + $transaction->getSolde() * $signe);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($transaction);
             $entityManager->flush();

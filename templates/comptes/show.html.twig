@@ -29,6 +29,7 @@
         <thead>
             <tr class="table-light">
                 <th scope="col">Date</th>
+                <th scope="col">intitule</th>
                 <th scope="col">Solde</th>
             </tr>
         </thead>
@@ -36,11 +37,12 @@
             {% for transaction in compte.transactions %}
                 <tr class="table-light">
                     <td>{{ transaction.datestring }}</td>
+                    <td>{{ transaction.intitule }}</td>
                     <td>{{ transaction.solde }}</td>
                 </tr>
             {% else %}
             <tr class="table-warning">
-                <td colspan="2">Aucune transaction enregistrée.</td>
+                <td colspan="3">Aucune transaction enregistrée.</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -2,18 +2,33 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link type="text/css" rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css"  media="screen,projection"/>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+        <!--link type="text/css" rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css"  media="screen,projection"/-->
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body>      
+        <div class="container">
+            {% block body %}{% endblock %}
 
-        {% if errorMessage is defined%}
-            <span>{{ errorMessage }}</span>
-        {% endif %}
+            {% if errorMessage is defined %}
+              <div class="row">
+                <div class="col s12 m5">
+                  <div class="card-panel red">
+                    <span class="white-text"> {{ errorMessage }} </span>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+        </div>
         
         {% block javascripts %}{% endblock %}
+        <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>
 </html>

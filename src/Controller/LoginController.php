@@ -60,6 +60,7 @@ class LoginController extends AbstractController
                 $firstTransaction = new Transactions();
                 $firstTransaction->setSolde(0);
                 $firstTransaction->setDate(new DateTime());
+                $firstTransaction->setIntitule("Création du compte");
                 $compte->addTransaction($firstTransaction);
 
                 // Add to the db

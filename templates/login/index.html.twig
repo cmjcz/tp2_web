@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Identification!{% endblock %}
 
 {% block body %}
-<div class="block">
-    <div class="login_block">
+	<div class="row">
         <h1>Identification</h1>
 
         {{ form_start(formConnexion) }}
             {{ form_widget(formConnexion) }}
-                <button class="btn">{{ button_label|default('Connexion') }}</button>
+                <button class="waves-effect waves-light btn-large">
+                	{{ button_label|default('Connexion') }} <i class="material-icons right">send</i>
+                </button>
         {{ form_end(formConnexion) }}
     </div>    
-    <button onclick="window.location.href = '{{ path('register') }}';" type="button" class="btn btn-success">S'enregistrer</button>
-</div>
+    <button onclick="window.location.href = '{{ path('register') }}';" type="button" class="waves-effect waves-light btn">
+    	Vous n'avez pas encore de compte ?
+    </button>
 {% endblock %}

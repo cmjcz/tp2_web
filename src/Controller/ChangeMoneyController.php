@@ -28,7 +28,7 @@ class ChangeMoneyController extends AbstractController
      */
     public function depot(Request $request, Comptes $compte) : Response
     {
-        return $this->changeMonney($compte, $request, 1, 'Depot');
+        return $this->changeMonney($compte, $request, 1, 'Dépôt');
     }
 
     private function changeMonney(Comptes $compte, Request $request, int $signe, String $nom) : Response
